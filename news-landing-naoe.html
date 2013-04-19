@@ -1,0 +1,143 @@
+## Format the news landing page
+
+## Work down to <system-page>(s) from top-level system-index-block except <system-page>(s) in the asset factory path.
+#set ($pages = $_XPathTool.selectNodes($contentRoot, "/system-index-block/system-page[not(contains(path,'_cascade'))]"))
+#set ($paginationFlag = 0)
+
+#if ( $pages.size() > 0 )
+
+   ## Sort pages in chronological order
+   $_SortTool.addSortCriterion("start-date","","number","descending","")
+   $_SortTool.sort($pages)
+   #######################################################################
+   ##  Enable pagination if items displaying are more than 10                                                                  ##
+   #######################################################################
+   #if ( $pages.size() > 10 )
+      #set ($paginationFlag = 1)
+      
+   ##Javascript for the Pagination
+<link href="_files/css/pagination.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+//<![CDATA[
+head.ready(function() {
+  head.js("[system-asset:/_files/scripts/pagination.js[/system-asset]",
+  function () {
+  
+  $().ready(function() {
+      head.ready('pagination.js', function(){
+      initList();
+      });     
+    });
+  });
+});
+//]]>
+</script>
+   
+  #end ##if items >10 for the pagination.
+    
+   ######################################################################
+   ## Page Content Wrapper
+   ######################################################################   
+   #set ($featureBody = "featureBodyWide")
+   <div class="${featureBody} news-landing">
+   
+   #if ($paginationFlag == 1)
+     <ul class="itemList">
+    #end
+  
+   #foreach ( $page in $pages )                        
+        
+      ####################################
+      ## Working with metadata fields ####
+      ####################################
+      ## Reference the <title> node
+      #set ( $title = $page.getChild("title").value)
+        
+      ## Reference the <summary> node
+      #set ( $summary = $page.getChild("summary").value)
+        
+      ## Reference the <author> node
+      #set ( $author = $page.getChild("author").value)        
+        
+      ## Value of <start-date> node
+      #set ( $sdate = $page.getChild("start-date").value)
+
+      ## Convert to Date object
+      #set ($obj = $_DateTool.getDate($sdate))        
+      ## Format to human-readable
+      #set($postedDate= $_DateTool.format("MMM dd, yyyy", $obj))
+                
+      ## Value of <link> node
+      #set ( $href = $page.getChild("link").value)
+        
+      #########################################
+      ## WORKING WITH DATA DEFINITION FIELDS ##
+      #########################################
+      ## Reference the <system-data-structure> node
+      #set ( $data = $page.getChild("system-data-structure"))
+        
+      ## Reference the <article> node
+      #set ( $content = $data.getChild("article").value)
+        
+      ### Reference the <image> node. Note: If using the masthead image, then that would be your thubnail, otherwise the article's image. In none available, then no thumbnail.
+      #set ( $articleImage= $data.getChild("Image"))      
+     
+     #set ($images = $_XPathTool.selectNodes($data, "Masthead/images[path != '/']"))
+     #set ($hasMasthead = ($images.size() > 0))
+
+     #if ($hasMasthead)       
+         #set ($thumbnail = $images.get(0))
+     #elseif ($articleImage)
+         #set ($thumbnail =$articleImage)
+     #end
+
+     #if ($paginationFlag == 1)
+      <li>
+     #end
+      <div class="news-item">
+      ## Test for thumbnail selection
+         #if ($thumbnail && $thumbnail.getChild("path").value != "/" )
+           ## Value of thumbnail's <link> node
+           #set ( $link = $thumbnail.getChild("link").value )
+            
+           #if ($thumbnail.getChild("display-name"))
+                 #set ($alternateText = $thumbnail.getChild("display-name").value)
+           #else
+                 #set ($alternateText = $thumbnail.getChild("name").value)
+           #end
+              <div class="news-img news-img-landing">
+                 <a href="${href}"><img src="${link}" alt="${alternateText}" width="200" /></a>
+
+              </div>
+         #end ## if has thumbnail         
+           ## Print Title
+           <h2><a href="${href}">$_EscapeTool.xml($title)</a></h2>         
+           ## Print summary
+           #if ($summary)
+             <p>$_EscapeTool.xml($summary)</p>
+           #else
+             #set ($newSummaryNoTags = $_DisplayTool.stripTags($content))
+             #set ($newSummary = $_DisplayTool.truncate($newSummaryNoTags,500,"...",true))
+             <p>$_EscapeTool.xml($newSummary)</p>            
+           #end
+      
+      </div>
+     ## Print link to the complete article
+     <div class="news-meta">
+          <span class="news-date-posted"><strong>Posted on:</strong> ${postedDate} by $_EscapeTool.xml($author)</span>           
+          <span class="readmore"><a href="${href}">Read more</a></span>
+     </div>
+     #if ($paginationFlag == 1)
+      </li>
+     #end  
+   #end  ##end foreach
+   
+   #if ($paginationFlag == 1)
+     </ul>
+    <div class="pager">
+     <ul class="pagination"><li>Loading more news</li></ul>
+   </div>
+   #end
+   </div>   
+   
+#end ##if pages.size > 0

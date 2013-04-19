@@ -1,0 +1,45 @@
+#set ( $defaultPage = "index" )
+#set ( $curryear = $_XPathTool.selectSingleNode($contentRoot, "//system-folder[@current or system-folder[@current]]/name").value )
+#set ( $years = $_XPathTool.selectNodes($contentRoot, "/system-index-block/system-folder[contains(name,'20')]") )
+
+#if ( $years.size() > 0 )
+$_SortTool.addSortCriterion("title", "", "text", "descending", "upper-first")
+$_SortTool.sort($years)
+
+<h4>Archives</h4>
+<ul>
+#foreach ( $year in $years )
+    #set ( $yeartitle = $year.getChild("title") )
+    #set ( $yearlink  = $year.getChild("link").value )
+    
+    <li><a href="${yearlink}/${defaultPage}">${_EscapeTool.xml($yeartitle.value)}</a>   
+    #if ( $yeartitle.value == $curryear )    
+        <ul>
+            #set ( $months = $_XPathTool.selectNodes($year, "system-folder") )
+            $_SortTool.addSortCriterion("name", "", "text", "ascending", "upper-first")
+            $_SortTool.sort($months)
+            #foreach ( $month in $months )                
+                #set ( $monthlink  = $month.getChild("link").value )
+                #set ( $landingPage = $_XPathTool.selectSingleNode($month, "system-page[name = '${defaultPage}']") )
+                #set ( $landingPageTitle = $landingPage.getChild("title") )
+                #set ( $theLinkTitle = "" )
+
+                #if ( $landingPageTitle && $landingPageTitle.value != "" )
+                    #set ( $theLinkTitle = $landingPageTitle )
+                #elseif ( $month.getChild("title") && $month.getChild("title").value != "" )        
+                    ## Reference to the title node
+                    #set ( $theLinkTitle = $month.getChild("title") )
+                #else            
+                    ## Reference to the name node
+                    #set ( $theLinkTitle = $month.getChild("name") )
+                #end
+
+                <li><a href="${monthlink}/${defaultPage}">${_EscapeTool.xml($theLinkTitle.value)}</a></li>
+            #end
+        </ul>
+    #end
+    </li>
+#end
+</ul>
+<hr/>
+#end

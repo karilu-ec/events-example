@@ -1,0 +1,46 @@
+#set ( $defaultPage = "index" )
+#set ( $currFolder = $_XPathTool.selectSingleNode($contentRoot, "//system-folder[@current or system-folder[@current]]/name").value )
+#set ( $folders = $_XPathTool.selectNodes($contentRoot, "/system-index-block/system-folder/[name='note' or name='inst'])")
+
+#if ( $folders.size() > 0 )
+$_SortTool.addSortCriterion("title", "", "text", "descending", "upper-first")
+$_SortTool.sort($folders)
+##TODO
+##Put the title metadata to the folders. Add the instruction folder and its subfolder numbers folders. See if the index page is there.
+<h4>Archives</h4>
+<ul>
+#foreach ( $folder in $folders )
+    #set ( $foldertitle = $folder.getChild("title") )
+    #set ( $folderlink  = $folder.getChild("link").value )
+    
+    <li><a href="${folderlink}/${defaultPage}">${_EscapeTool.xml($foldertitle.value)}</a>   
+    #if ( $foldertitle.value == $currFolder )    
+        <ul>
+            #set ( $subfolderNumbers = $_XPathTool.selectNodes($folder, "system-folder") )
+            $_SortTool.addSortCriterion("name", "", "text", "ascending", "upper-first")
+            $_SortTool.sort($subfolderNumbers)
+            #foreach ( $subfolderName in $subfolderNumbers )                
+                #set ( $subfolderLink  = $subfolderName.getChild("link").value )
+                #set ( $landingPage = $_XPathTool.selectSingleNode($subfolderName, "system-page[name = '${defaultPage}']") )
+                #set ( $landingPageTitle = $landingPage.getChild("title") )
+                #set ( $theLinkTitle = "" )
+
+                #if ( $landingPageTitle && $landingPageTitle.value != "" )
+                    #set ( $theLinkTitle = $landingPageTitle )
+                #elseif ( $subfolderName.getChild("title") && $subfolderName.getChild("title").value != "" )        
+                    ## Reference to the title node
+                    #set ( $theLinkTitle = $subfolderName.getChild("title") )
+                #else            
+                    ## Reference to the name node
+                    #set ( $theLinkTitle = $subfolderName.getChild("name") )
+                #end
+
+                <li><a href="${subfolderLink}/${defaultPage}">${_EscapeTool.xml($theLinkTitle.value)}</a></li>
+            #end
+        </ul>
+    #end
+    </li>
+#end
+</ul>
+<hr/>
+#end

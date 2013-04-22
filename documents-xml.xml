@@ -1,1 +1,44 @@
-<xml><admin-document><title>Summer Uniform</title><id>1ddf31570a014d0b57a165ca6d337f5e</id><target>true</target><path>/entity/open.act?type=page&id=1ddf31570a014d0b57a165ca6d337f5e&confId=1dcf3d450a014d0b57a165ca4326fffc</path><document-date>04/12/13</document-date><cancellation-date/><alternate-cancellation-date>CXL-10/2013</alternate-cancellation-date><originator>OfcrPers</originator><admin-file><path>/_files/documents/notices/1000-1999/USNA-NOTE-1020-12-APR-2013.pdf</path><link>site://Administrative Department - Public/_files/documents/notices/1000-1999/USNA-NOTE-1020-12-APR-2013.pdf</link></admin-file></admin-document><admin-document><title>Winter Uniform</title><id>1e281cf20a014d0b57a165ca8cb386a3</id><target>true</target><path>/entity/open.act?type=page&id=1e281cf20a014d0b57a165ca8cb386a3&confId=1dcf3d450a014d0b57a165ca4326fffc</path><document-date>09/24/12</document-date><cancellation-date/><alternate-cancellation-date>CXL-4/2013</alternate-cancellation-date><originator>OfcrPers</originator><admin-file><path>/_files/documents/notices/1000-1999/USNA-NOTE-1020-12-APR-2013.pdf</path><link>site://Administrative Department - Public/_files/documents/notices/1000-1999/USNA-NOTE-1020-12-APR-2013.pdf</link></admin-file></admin-document><admin-document><title>V2013 Yard-Wide Prizes and Awards Ceremony</title><id>1edab0820a014d0b57a165ca2cd29bee</id><target>true</target><path>/entity/open.act?type=page&id=1edab0820a014d0b57a165ca2cd29bee&confId=1dcf3d450a014d0b57a165ca4326fffc</path><document-date>04/01/13</document-date><cancellation-date/><alternate-cancellation-date>CXL-06/2013</alternate-cancellation-date><originator>HUMMS, P&amp;A CMTE</originator><admin-file><path>/</path><link/></admin-file></admin-document></xml>
+<xml>
+  <admin-document>
+    <title>Summer Uniform</title>
+    <id>1ddf31570a014d0b57a165ca6d337f5e</id>
+    <target>true</target>
+    <path>/entity/open.act?type=page&amp;id=1ddf31570a014d0b57a165ca6d337f5e&amp;confId=1dcf3d450a014d0b57a165ca4326fffc</path>
+    <document-date>04/12/13</document-date>
+    <cancellation-date />
+    <alternate-cancellation-date>CXL-10/2013</alternate-cancellation-date>
+    <originator>OfcrPers</originator>
+    <admin-file>
+      <path>/_files/documents/notices/1000-1999/USNA-NOTE-1020-12-APR-2013.pdf</path>
+      <link>site://Administrative Department - Public/_files/documents/notices/1000-1999/USNA-NOTE-1020-12-APR-2013.pdf</link>
+    </admin-file>
+  </admin-document>
+  <admin-document>
+    <title>Winter Uniform</title>
+    <id>1e281cf20a014d0b57a165ca8cb386a3</id>
+    <target>true</target>
+    <path>/entity/open.act?type=page&amp;id=1e281cf20a014d0b57a165ca8cb386a3&amp;confId=1dcf3d450a014d0b57a165ca4326fffc</path>
+    <document-date>09/24/12</document-date>
+    <cancellation-date />
+    <alternate-cancellation-date>CXL-4/2013</alternate-cancellation-date>
+    <originator>OfcrPers</originator>
+    <admin-file>
+      <path>/_files/documents/notices/1000-1999/USNA-NOTE-1020-12-APR-2013.pdf</path>
+      <link>site://Administrative Department - Public/_files/documents/notices/1000-1999/USNA-NOTE-1020-12-APR-2013.pdf</link>
+    </admin-file>
+  </admin-document>
+  <admin-document>
+    <title>V2013 Yard-Wide Prizes and Awards Ceremony</title>
+    <id>1edab0820a014d0b57a165ca2cd29bee</id>
+    <target>true</target>
+    <path>/entity/open.act?type=page&amp;id=1edab0820a014d0b57a165ca2cd29bee&amp;confId=1dcf3d450a014d0b57a165ca4326fffc</path>
+    <document-date>04/01/13</document-date>
+    <cancellation-date />
+    <alternate-cancellation-date>CXL-06/2013</alternate-cancellation-date>
+    <originator>HUMMS, P&amp;A CMTE</originator>
+    <admin-file>
+      <path>/</path>
+      <link />
+    </admin-file>
+  </admin-document>
+</xml>

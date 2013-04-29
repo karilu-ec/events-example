@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Replace contents</title>
+  <style type="text/css">
+    .table{
+      border: solid 1px #ccc;
+    }
+  </style>
+  <script type="text/javascript" src="../javascript/jquery-1.9.1.min.js"></script>
+  <script type="text/javascript">
+   $(document).ready(function(){
+    $("#selector").click(function(e){
+     e.preventDefault();  
+    
+    $.ajax({
+      url:"replace-fragment.html",
+      cache:false
+      }).done(function(data){
+      var h2 = $(data).filter("h2.pageTitle").html()
+      $("#selector2").html(h2);
+     $("h2.pageTitle").html($(data).filter("h2.pageTitle").html());
+     $("div.section").html($(data).filter("div.section").html())                                   
+      });
+    })
+   });
+  </script>
+</head>
+<body>
+  <h2 class="pageTitle">Page title main page</h2>
+  
+  <p id="selector">Click me!</p>
+  <p id="selector2">test</p>
+  <div class="section">
+    <table class="table">
+      <thead>
+        <tr>
+          <td>Title 1</td>
+          <td>Title 2</td>
+          <td>Title 3</td>
+          <td>Title 4</td>
+        </tr>
+      </thead>
+      <tr>
+        <td>content1</td>
+        <td>content2</td>
+        <td>content3</td>
+        <td>content4</td>
+      </tr>
+    </table>
+  </div>
+</body>
+</html>

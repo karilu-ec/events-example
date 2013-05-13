@@ -1,0 +1,17 @@
+#set ($currentFolder = $_XPathTool.selectSingleNode($contentRoot, "//system-folder[@current]"))
+#set ($title = "")
+
+## Are we viewing a parent or subfolder landing
+#if ($currentFolder.getChild("path").value.lastIndexOf("/") > 0)
+    ## Reference the parent Folder's name
+    ## Reference the Current subfolder Page's title
+    #set ($theParentFolder = $_XPathTool.selectSingleNode($currentFolder, "parent::system-folder/name").value)    
+    #set ($theSubfolder = $_XPathTool.selectSingleNode($currentFolder, "system-page[@current]/title").value)
+    #set ($title = "${theParentFolder} ${theSubfolder}")
+#else
+    ## Reference the YYYY Folder's name
+    #set ($theParentFolder = $currentFolder.getChild("name").value)
+    #set ($title = "${theParentFolder}")
+#end
+
+<h2 class="pageTitle">${_EscapeTool.xml($title)}</h2>

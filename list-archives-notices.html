@@ -1,30 +1,62 @@
+#*
+Outputs the title of the folder
+@param $currentFolderforTitle the current folder
+*#
+#macro (outputTitle $currentFolder)
+#set ($title = "")
+## Are we viewing a parent or subfolder landing
+#if ($currentFolder.getChild("path").value.lastIndexOf("/") > 0)
+    ## Reference the parent Folder's name
+    ## Reference the Current subfolder Page's title
+    #set ($theParentFolder = $_XPathTool.selectSingleNode($currentFolder, "parent::system-folder/display-name").value)    
+    #set ($theSubfolder = $currentFolder.getChild("name").value)
+    #set ($title = "${theParentFolder} ${theSubfolder}")
+#else
+    ## Reference the YYYY Folder's name
+    #set ($theParentFolder = $currentFolder.getChild("display-name").value)
+    #set ($title = "${theParentFolder}")
+#end
+
+<h2 class="pageTitle">${_EscapeTool.xml($title)}</h2>
+
+#end ##macro output title
+
+
 #set ( $defaultPage = "index" )
 #set ( $currFolder = $_XPathTool.selectSingleNode($contentRoot, "//system-folder[@current or system-folder[@current]]/name").value )
-#set ( $folders = $_XPathTool.selectNodes($contentRoot, "/system-index-block/system-folder/[name='note' or name='inst'])")
+#set ( $folders = $_XPathTool.selectNodes($contentRoot, "/system-index-block/system-folder[name='Note' or name='Inst']"))
+#set ($currentFolderforTitle = $_XPathTool.selectSingleNode($contentRoot, "//system-folder[@current]"))
+
+#outputTitle ($currentFolderforTitle)
 
 #if ( $folders.size() > 0 )
-$_SortTool.addSortCriterion("title", "", "text", "descending", "upper-first")
+$_SortTool.addSortCriterion("display-name", "", "text", "descending", "upper-first")
 $_SortTool.sort($folders)
-##TODO
-##Put the title metadata to the folders. Add the instruction folder and its subfolder numbers folders. See if the index page is there.
-<h4>Archives</h4>
-<ul>
+<div class="subMenuA">
+<div id="archive">
+<h3>Archives</h3>
+<ul class="archivelist">
 #foreach ( $folder in $folders )
-    #set ( $foldertitle = $folder.getChild("title") )
-    #set ( $folderlink  = $folder.getChild("link").value )
-    
-    <li><a href="${folderlink}/${defaultPage}">${_EscapeTool.xml($foldertitle.value)}</a>   
-    #if ( $foldertitle.value == $currFolder )    
-        <ul>
+    #set ( $folderClass = '')
+    #set ( $folderTitle = $folder.getChild("title") )
+    #set ( $folderDisplayName = $folder.getChild("display-name") )
+    #set ( $folderLink  = $folder.getChild("link").value )
+    #if ( $folderTitle.value == $currFolder )
+      #set ($folderClass = "expanded")
+    #end
+    <li #if ($folderClass && $folderClass!="") class="${folderClass}" #end>
+        <a href="${folderLink}/${defaultPage}">${_EscapeTool.xml($folderDisplayName.value)}</a>   
+    #if ( $folderTitle.value == $currFolder )  
+        <ul id="subfolders">
             #set ( $subfolderNumbers = $_XPathTool.selectNodes($folder, "system-folder") )
-            $_SortTool.addSortCriterion("name", "", "text", "ascending", "upper-first")
+            $_SortTool.addSortCriterion("order", "", "number", "ascending", "upper-first")
             $_SortTool.sort($subfolderNumbers)
             #foreach ( $subfolderName in $subfolderNumbers )                
                 #set ( $subfolderLink  = $subfolderName.getChild("link").value )
                 #set ( $landingPage = $_XPathTool.selectSingleNode($subfolderName, "system-page[name = '${defaultPage}']") )
                 #set ( $landingPageTitle = $landingPage.getChild("title") )
+                #set ( $jquerySelector = $subfolderName.getChild("name").value)
                 #set ( $theLinkTitle = "" )
-
                 #if ( $landingPageTitle && $landingPageTitle.value != "" )
                     #set ( $theLinkTitle = $landingPageTitle )
                 #elseif ( $subfolderName.getChild("title") && $subfolderName.getChild("title").value != "" )        
@@ -34,7 +66,6 @@ $_SortTool.sort($folders)
                     ## Reference to the name node
                     #set ( $theLinkTitle = $subfolderName.getChild("name") )
                 #end
-
                 <li><a href="${subfolderLink}/${defaultPage}">${_EscapeTool.xml($theLinkTitle.value)}</a></li>
             #end
         </ul>
@@ -42,5 +73,7 @@ $_SortTool.sort($folders)
     </li>
 #end
 </ul>
-<hr/>
+</div>
+</div>
+
 #end

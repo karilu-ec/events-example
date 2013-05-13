@@ -1,8 +1,8 @@
-<system-index-block name="all-notes" type="content_type" current-time="1366403581780">
+<system-index-block current-time="1366638516251" name="all-documents" type="content_type">
   <system-page id="1ddf31570a014d0b57a165ca6d337f5e">
     <name>1020-summer-uniform</name>
     <is-published>true</is-published>
-    <title>Summer Uniform</title>
+    <title>Note 1000 - 1999 :: Administrative Department :: USNASummer Uniform</title>
     <path>/note/1000-1999/1020-summer-uniform</path>
     <site>Administrative Department - Public</site>
     <link>site://Administrative Department - Public/note/1000-1999/1020-summer-uniform</link>
@@ -41,7 +41,7 @@
   <system-page id="1e281cf20a014d0b57a165ca8cb386a3">
     <name>1020-winter-uniform</name>
     <is-published>true</is-published>
-    <title>Winter Uniform</title>
+    <title>Note 1000 - 1999 :: Administrative Department :: USNAWinter Uniform</title>
     <path>/note/1000-1999/1020-winter-uniform</path>
     <site>Administrative Department - Public</site>
     <link>site://Administrative Department - Public/note/1000-1999/1020-winter-uniform</link>
@@ -80,7 +80,7 @@
   <system-page id="1edab0820a014d0b57a165ca2cd29bee">
     <name>1650-prizes-awads-ceremony</name>
     <is-published>true</is-published>
-    <title>V2013 Yard-Wide Prizes and Awards Ceremony</title>
+    <title>Note 1000 - 1999 :: Administrative Department :: USNAV2013 Yard-Wide Prizes and Awards Ceremony</title>
     <path>/note/1000-1999/1650-prizes-awads-ceremony</path>
     <site>Administrative Department - Public</site>
     <link>site://Administrative Department - Public/note/1000-1999/1650-prizes-awads-ceremony</link>
@@ -103,4 +103,53 @@
       </admin-file>
     </system-data-structure>
   </system-page>
+  <system-page id="31fab3160a014d0b57a165ca7bf46057">
+    <name>17170-1A-casuality-assistance</name>
+    <is-published>true</is-published>
+    <title>Note 1000 - 1999 :: Administrative Department :: USNACasualty Assistance Calls/Funeral Honors Support Sub-Area Coordinator</title>
+    <path>/inst/1000-1999/17170-1A-casuality-assistance</path>
+    <site>Administrative Department - Public</site>
+    <link>site://Administrative Department - Public/inst/1000-1999/17170-1A-casuality-assistance</link>
+    <created-by>ksimpson</created-by>
+    <created-on>1366638113497</created-on>
+    <last-modified-by>ksimpson</last-modified-by>
+    <last-modified>1366638188514</last-modified>
+    <dynamic-metadata>
+      <name>document-category</name>
+      <value>Instruction</value>
+    </dynamic-metadata>
+    <system-data-structure definition-path="Document-Data">
+      <number>1770.1A</number>
+      <document-date>1330491600000</document-date>
+      <cancellation-date />
+      <alternate-cancellation-date />
+      <originator>OfcrPers</originator>
+      <admin-file>
+        <path>/</path>
+      </admin-file>
+    </system-data-structure>
+  </system-page>
+  <calling-page>
+    <system-page current="true" id="1e3a54880a014d0b57a165ca463aecce">
+      <name>index</name>
+      <is-published>true</is-published>
+      <title>Note 1000 - 1999 :: Administrative Department :: USNANote 1000 - 1999</title>
+      <path>/note/1000-1999/index</path>
+      <site>Administrative Department - Public</site>
+      <link>site://Administrative Department - Public/note/1000-1999/index</link>
+      <created-by>ksimpson</created-by>
+      <created-on>1366306739313</created-on>
+      <last-modified-by>ksimpson</last-modified-by>
+      <last-modified>1366318004887</last-modified>
+      <dynamic-metadata>
+        <name>page_columns</name>
+        <value>two</value>
+      </dynamic-metadata>
+      <dynamic-metadata>
+        <name>include_nav</name>
+        <value>Yes</value>
+      </dynamic-metadata>
+      <page-xhtml />
+    </system-page>
+  </calling-page>
 </system-index-block>

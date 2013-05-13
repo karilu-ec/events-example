@@ -144,7 +144,8 @@ $endCal.set(12, 59)
 #set ($startTimestamp = $startCal.getTime().getTime())
 #set ($endTimestamp = $endCal.getTime().getTime())
 
-## Grab all single events after between the start and end time, or recurring events that fall between the start time and the end time defined above. Also ensure recurring events occur after the start time, but fall within the range (eg 2012 events can't fall within the 2011 range).
+## Grab all single events after between the start and end time, or recurring events that fall between the start time and the end time defined above. Also ensure recurring events occur after the start time, but fall within the range
+##(eg 2012 events can't fall within the 2011 range).
 #set ($recurrenceXPath = "recurrence[frequency != '' and frequency != 'Once' and (ends = '' or (ends != '' and ends >= '${startTimestamp}'))]")
 
 #set ($events = $_XPathTool.selectNodes($contentRoot, "//system-page[not(contains(path, '_cascade')) and (system-data-structure[(starts >= '${startTimestamp}' and ends <= '${endTimestamp}') or (ends <= '${startTimestamp}' and ${recurrenceXPath})])]"))

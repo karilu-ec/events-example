@@ -1,0 +1,86 @@
+
+##############################
+## Format the landing page
+##############################
+## Work down to system-page(s) from top-level system-index-block
+#set ($callingPage = $_XPathTool.selectSingleNode($contentRoot, "//calling-page/system-page"))
+
+                    
+    ######################################################################
+    ## Page Content Wrapper
+    ######################################################################   
+    #set ($featureBody = "featureBodyWide")
+    <div class="${featureBody} documents-landing">
+          ####################################
+          ## Working with metadata fields ####
+          ####################################
+          ## Reference the <title> node
+          #set ( $subject = $callingPage.getChild("title").value)
+          
+         
+          #########################################
+          ## WORKING WITH DATA DEFINITION FIELDS ##
+          #########################################
+          ## Reference the <system-data-structure> node
+          #set ( $data = $callingPage.getChild("system-data-structure"))
+            
+          ## Reference the <number> node
+          #set ( $number = $data.getChild("number").value)
+          
+          ## Reference the <document-date> node
+          #set ( $document-date = $data.getChild("document-date").value)
+          ## Convert to Date object
+          #set ($obj = $_DateTool.getDate($document-date))        
+          ## Format to human-readable
+          #set($documentDate= $_DateTool.format("MMM dd, yyyy", $obj))
+          
+          ## Reference the <cancellation-date> node
+          #set ( $cancellation-date = $data.getChild("cancellation-date").value)
+          #if ($cancellation-date && $cancellation-date != '')
+            ## Convert to Date object
+            #set ($obj = $_DateTool.getDate($cancellation-date))        
+            ## Format to human-readable
+            #set($cancellationDate= $_DateTool.format("MMM dd, yyyy", $obj))
+          #else
+            #set ($cancellationDate='')
+          #end
+        
+          ## Reference the <alternate-cancellation-date> node (String)
+          #set ( $alternateCancellationDate = $data.getChild("alternate-cancellation-date").value)
+          
+          ## Reference the <originator> node
+          #set ( $originator = $data.getChild("originator").value)
+          
+          ### Reference the <admin-file> node.
+          #set ( $adminFile= $data.getChild("admin-file"))      
+          ## Test for file attachment
+          #if ($adminFile && $adminFile.getChild("path").value != "/" )
+            ##Value of the admin-file link
+            #set ($adminFileLink = $adminFile.getChild("link").value)
+          #end
+         
+         <p><strong>Number:</strong>
+            #if ($adminFileLink && $adminFileLink != '')
+            <a href="${adminFileLink}">$!_EscapeTool.xml($number)</a>                
+            #else
+              $!_EscapeTool.xml($number)
+            #end
+         </p>
+         <p><strong>Document Date:</strong>
+         $!{documentDate}
+         <p><strong>Document Category</strong>
+         $!{documentCategory}
+         </p>
+            #if ($documentCategory == "Note")
+        <p><strong>Cancellation Date:</strong>
+               #if ($cancellationDate && $cancellationDate != '')
+                 ${cancellationDate}
+               #else
+                 $!_EscapeTool.xml($alternateCancellationDate)
+               #end
+        </p>
+            #end            
+        <p><strong>Subject: </strong>$!_EscapeTool.xml($subject)</p>
+        <p><strong>Originator: </strong>$!_EscapeTool.xml($originator)</p>
+         
+    </div>

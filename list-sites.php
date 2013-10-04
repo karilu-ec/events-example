@@ -5,7 +5,7 @@ $client = new SoapClient
 	$soapURL, 
 	array ('trace' => 1, 'location' => str_replace('?wsdl', '', $soapURL)) 
 );	
-$auth = array ('username' => 'ksimpson', 'password' => 'C3c1liaI\$abeL@' );
+$auth = array ('username' => 'ksimpson', 'password' => 'password' );
 
 $listSitesParams = array ('authentication' => $auth);
 $reply = $client->listSites($listSitesParams);

@@ -3,7 +3,7 @@ date_default_timezone_set("UTC");
 echo "Process started at ".date("m/d/y H:i:s",time())."\r\n";
 
 $username = "ksimpson";
-$password = "C3c1liaI\$abeL@";
+$password = "password";
 $cascadePath = "https://cascade.usna.edu";
 
 $cascade = new SoapClient($cascadePath . "/ws/services/AssetOperationService?wsdl",array('trace' => 1));
